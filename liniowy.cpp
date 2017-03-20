@@ -2,17 +2,36 @@
 
 using namespace std;
 
-int main() {    
-  unsigned long long m,a,c,x,x0;
+long long randLiniowy(long long a, long long c, long long M, long long x0)
+{
+	return (a * x0 + c) % M;
+}
 
-  cin >> m >> a >> c >> x0;
-  x = x0;
+double randPrzesuwny(int p, int q, long long M, long long seed)
+{
+	seed ^= seed >> p;
+	seed ^= seed << q;
+	seed %= M;
+	return seed;
+}
 
-  do {
-    x = (a * x + c) % m;
-    cout << x << " ";
-  } while(x != x0);
+int main() {
+	long long x = 0;
+	cout << "Liniowy" << endl;
+	for(int i = 0; i < 100; i++)
+	{
+		x = randLiniowy(69069, 1, 4294967296, x);
+		cout << x << endl;
+	}
 
-  cout << endl;
+	cout << "Przesuwny" << endl;
+
+	x = randLiniowy(69069, 1, 4294967296, 6542346534);
+	for(int i = 0; i < 100; i++)
+	{
+		x = randPrzesuwny(2, 1, 4294967296, x);
+		cout << x << endl;
+	}
+
   return 0;
 } 
